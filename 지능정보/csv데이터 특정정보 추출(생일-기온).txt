@@ -1,0 +1,26 @@
+import csv
+import matplotlib.pyplot as plt
+f=open('incheon_weather.csv','r')
+
+data=csv.reader(f)
+next(data)
+
+high=[]
+low=[]
+
+for row in data:
+    if row[-1]!='' and row[-2]!='':
+        if int(row[0].split('-')[0])>=1996:
+            if row[0].split('-')[1]=='04' and row[0].split('-')[2]=='06':
+                high.append(float(row[-1]))
+                low.append(float(row[-2]))
+                           
+f.close()
+
+plt.title('201601649 - birthday temperature')   
+plt.rcParams['axes.unicode_minus']=False
+plt.plot(high,color='pink',label='high')
+plt.plot(low,color='cornflowerblue',label='low')
+
+plt.legend()
+plt.show()
