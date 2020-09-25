@@ -1,3 +1,5 @@
+
+# 꺽은선 그래프 
 import csv
 import matplotlib.pyplot as plt
 
@@ -35,3 +37,41 @@ plt.scatter(mm_index,result[mm_index],color='blue')
 plt.xlabel('연령')
 plt.ylabel('인구수')
 plt.show()
+
+
+
+
+
+
+# 막대 그래프
+import csv
+import matplotlib.pyplot as plt
+
+f=open('incheon_population.csv','r')
+data=csv.reader(f)
+
+male=[]
+female=[]
+
+name=input('동 입력: ')
+for row in data:
+    if name in row[0]:
+        for m,f in zip(row[3:104], row[106:207]):
+            male.append(-int(m))
+            female.append(int(f))
+
+
+plt.rc('font',family='Malgun Gothic') #폰트 추가 방법
+plt.title(name+'전체 연령별 인구수')
+
+
+plt.barh(range(101),male, label="남성")
+plt.barh(range(101),female, label="여성")
+plt.xlabel('연령')
+plt.ylabel('인구수')
+plt.show()
+
+
+
+
+
