@@ -1,0 +1,37 @@
+import csv
+import matplotlib.pyplot as plt
+
+f=open('incheon_population.csv','r')
+data=csv.reader(f)
+
+result=[]
+res=0
+i=0
+mm=0
+mm_index=0
+name=input('동 입력: ')
+for row in data:
+    if name in row[0]:
+        for m,f in zip(row[3:104], row[106:207]):
+            tmp=int(m)+int(f)
+            result.append(tmp)
+            
+            if tmp>mm:
+                mm=tmp
+                mm_index=i
+            
+            i+=1
+            
+print(mm_index)
+print(result[mm_index])
+print(max(result))
+
+plt.rc('font',family='Malgun Gothic') #폰트 추가 방법
+plt.title(name+'전체 연령별 인구수')
+
+plt.style.use('ggplot')
+plt.plot(result)
+plt.scatter(mm_index,result[mm_index],color='blue')
+plt.xlabel('연령')
+plt.ylabel('인구수')
+plt.show()
