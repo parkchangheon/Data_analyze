@@ -1,0 +1,216 @@
+#pie chart
+
+import matplotlib.pyplot as plt
+
+plt.pie([10,20])
+plt.show()
+
+
+
+import matplotlib.pyplot as plt
+
+
+plt.rc('font',family='Malgun Gothic')
+plt.axis('equal')
+label=['레이블1','레이블2','레이블3','레이블4']
+size=[100,200,300,400]
+color=['darkmagenta','deeppink','skyblue','blue']
+exp=(0,0,0.1,0)
+plt.pie(size, labels=label, autopct='%.2f%%', colors=color, explode=exp)
+plt.show()
+
+
+
+#파이차트로 그리기
+#(원그래프)
+
+import csv
+import matplotlib.pyplot as plt
+
+f=open('incheon_population.csv','r')
+data=csv.reader(f)
+
+result=[]
+ms=0
+fs=0
+
+for row in data:
+    if '송도1동' in row[0]:
+        for i in range(101):
+            ms=ms+int(row[i+3])
+            fs=fs+int(row[i+106])
+
+result.append(ms)
+result.append(fs)
+print(result)
+
+label=['남성','여성'] # 레이블 달기
+color=['skyblue','pink'] #색그리기
+exp=[0.1,0] #돌출효과 
+#startangle로 분할 각도 조절 가능
+
+plt.rc('font',family='Malgun Gothic') #폰트 추가 방법
+plt.title('송도1동 전체 연령별 인구수')
+plt.axis('equal')
+plt.pie(result,labels=label,autopct='%.2f%%',colors=color,explode=exp, startangle=90)
+plt.legend()
+plt.show()
+
+
+
+
+#bar chart
+
+import csv
+import matplotlib.pyplot as plt
+
+f=open('incheon_population.csv','r')
+data=csv.reader(f)
+
+result=[]
+res=0
+i=0
+mm=0
+mm_index=0
+name=input('동 입력: ')
+for row in data:
+    if name in row[0]:
+        for m,f in zip(row[3:104], row[106:207]):
+            tmp=int(m)+int(f)
+            result.append(tmp)
+
+
+plt.rc('font',family='Malgun Gothic') #폰트 추가 방법
+plt.title(name+'전체 연령별 인구수')
+
+plt.bar(range(101),result)
+plt.xlabel('연령')
+plt.ylabel('인구수')
+plt.show()
+
+
+
+
+
+
+import csv
+import matplotlib.pyplot as plt
+
+f=open('incheon_population.csv','r')
+data=csv.reader(f)
+
+male=[]
+female=[]
+
+name=input('동 입력: ')
+for row in data:
+    if name in row[0]:
+        for m,f in zip(row[3:104], row[106:207]):
+            male.append(-int(m))
+            female.append(int(f))
+
+
+plt.rc('font',family='Malgun Gothic') #폰트 추가 방법
+plt.title(name+'전체 연령별 인구수')
+
+
+plt.barh(range(101),male, label="남성")
+plt.barh(range(101),female, label="여성")
+plt.xlabel('연령')
+plt.ylabel('인구수')
+plt.show()
+
+
+
+
+# line chart
+
+
+import csv
+import matplotlib.pyplot as plt
+
+f=open('incheon_population.csv','r')
+data=csv.reader(f)
+
+result=[]
+res=0
+i=0
+mm=0
+mm_index=0
+for row in data:
+    if '송도1동' in row[0]:
+        for m,f in zip(row[3:104], row[106:207]):
+            tmp=int(m)+int(f)
+            result.append(tmp)
+            
+            if tmp>mm:
+                mm=tmp
+                mm_index=i
+            
+            i+=1
+            
+print(mm_index)
+print(result[49])
+print(max(result))
+
+plt.rc('font',family='Malgun Gothic') #폰트 추가 방법
+plt.title('송도 1동 전체 연령별 인구수')
+
+plt.style.use('ggplot')
+plt.plot(result)
+plt.scatter(mm_index,result[mm_index],color='blue')
+plt.xlabel('연령')
+plt.ylabel('인구수')
+plt.show()
+
+
+
+
+
+# scatter chart
+
+
+#산점도
+
+import csv
+import matplotlib.pyplot as plt
+
+plt.style.use('ggplot')
+x_list=[1,2,3,4]
+y_list=[10,30,20,40]
+size=[100,200,300,400]
+color=['r','g','b','gold']
+plt.scatter(x_list,y_list,s=size,c=color)
+
+
+
+
+import csv
+import matplotlib.pyplot as plt
+import math
+f=open('incheon_population.csv','r')
+data=csv.reader(f)
+
+male,female=[],[]
+size=[]
+name=input('궁금한 동네 이름을 입력해주세여 : ')
+for row in data:
+    if name in row[0]:
+        for i in range(3,104):
+            male.append(int(row[i]))
+            female.append(int(row[i+103]))
+            size.append(math.sqrt(int(row[i])+int(row[i+103])))
+        break
+        
+line=range(max(male))
+plt.rc('font',family='Malgun Gothic')
+plt.title('연령대별 성별 인구 그래프')
+
+plt.plot(line,line,color='g')
+plt.scatter(male,female,s=size,c=range(101),cmap='jet',alpha=0.5)
+plt.xlabel('남성 인구수')
+plt.ylabel('여성 인구수')
+
+plt.colorbar()
+plt.show()
+

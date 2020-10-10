@@ -1,0 +1,25 @@
+import pandas as pd
+
+url="https://ko.wikipedia.org/wiki/%EC%98%AC%EB%A6%BC%ED%94%BD_%EB%A9%94%EB%8B%AC_%EC%A7%91%EA%B3%84"
+df=pd.read_html(url)
+
+
+
+df=pd.read_html(url,header=0,index_col=0)
+a=df[0].iloc[:,5:10]
+
+a.columns=['동계 참가 횟수','금','은','동','계']
+a=a.sort_values(by=['동계 참가 횟수','금'],ascending=False)
+
+a
+
+
+
+
+import matplotlib.pyplot as plt
+
+plt.rc('font', family='Malgun Gothic')
+plt.rcParams['axes.unicode_minus']=False
+plt.style.use("ggplot") #격자
+
+a[1:16].plot(kind='bar')
