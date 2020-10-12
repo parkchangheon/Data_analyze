@@ -1,0 +1,48 @@
+import csv
+import matplotlib.pyplot as plt
+
+f1=open('seoul_child.csv','r')
+data=csv.reader(f1)
+f2=open('standard_ratio.csv','r')
+data2=csv.reader(f2)
+
+
+header = next(data)
+header.pop(0)
+print(header)
+
+born_rate=[]
+stand_rate=[]
+for row in data:
+    if '출산율(%)' in row[0]:
+        for i in row[1:11]:
+            born_rate.append(float(i))
+            
+
+for row in data2:
+    if '기준금리' in row[0]:
+        for i in row[1:11]:
+            stand_rate.append(float(i))
+            
+
+f1.close()
+f2.close()
+print(born_rate)
+print(stand_rate)
+
+fig, ax1 = plt.subplots()
+ax2 = ax1.twinx() 
+
+
+plt.rc('font',family='Malgun Gothic') #폰트 추가 방법
+plt.title('기준금리와 출산율 추이')
+plt.style.use('ggplot')
+plt.rcParams['axes.unicode_minus']=False
+
+curve1, = ax1.plot(header, stand_rate, label="금리", color='pink')
+curve2, = ax2.plot(header, born_rate, label="출산율", color='cornflowerblue')
+curves = [curve1, curve2]
+ax1.legend(curves, [curve.get_label() for curve in curves])
+
+plt.xlabel('연도')
+plt.show()

@@ -1,0 +1,34 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#외환보유
+url="https://ko.wikipedia.org/wiki/%EA%B5%AD%EA%B0%80%EB%B3%84_%EC%99%B8%ED%99%98%EB%B3%B4%EC%9C%A0%EA%B3%A0"
+df=pd.read_html(url,header=0,index_col=0)
+name=df[1].loc[:10,'나라/금융관리국']
+size=df[1].loc[:10,'외환보유액(백만 미국 달러)']
+
+
+#GDP
+url2="https://m.blog.naver.com/limpider/221732549598"
+df2=pd.read_html(url2,header=0,index_col=0)
+name2=df2[0].loc[:10,'국가']
+size2=df2[0].loc[:10,'GDP($T)']
+
+
+
+plt.rc('font', family='Malgun Gothic')
+plt.axis('equal')
+plt.rcParams['axes.unicode_minus']=False
+plt.style.use("ggplot") #격자
+color=['lightpink','powderblue','skyblue','bisque','pink','linen','orange','yellow','wheat','thistle']
+
+plt.figure(1)
+plt.title('나라별 외환 보유 순위')
+size[:10].plot(kind='pie',labels=name,colors=color,autopct='%.d%%')
+
+
+plt.figure(2)
+plt.title('국가 GDP')
+size2.plot(kind='pie',labels=name2,colors=color,autopct='%.d%%')
+plt.show()
+
