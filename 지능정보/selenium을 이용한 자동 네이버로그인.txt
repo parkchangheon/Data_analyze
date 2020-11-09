@@ -1,0 +1,26 @@
+#네이버 로그인하기 실습
+
+from selenium import webdriver
+
+driver=webdriver.Chrome(r"C:\Users\sean park\Downloads\chromedriver_win32\chromedriver.exe")
+#r은 백슬래쉬 설정이고, 위 경로는 절대 경로이다.
+
+driver.get("https://www.naver.com")
+
+#해당 브라우져에 접속하여, 그 창의 정보들을 가져올 수 있다.
+#최대한 수동 조작하지 않아야한다. => 개발자 도구를 사용해야한다.
+
+driver.get("https://nid.naver.com/nidlogin.login?url=http%3A%2F%2Fmail.naver.com%2F")
+
+login_id=driver.find_element_by_id("id") #"id"찾기
+login_id.clear() #미리 입력된것 지우기 
+login_id.send_keys("naver_id") #그 id 창에 값을 넣어줍니다.
+
+login_pw=driver.find_element_by_id("pw")
+login_pw.clear()
+login_pw.send_keys("pass1234")
+
+
+#로그인 할때에는 xpath를 이용해볼것이다.
+login_button='//*[@id="log.login"]'
+driver.find_element_by_xpath(login_button).click()
