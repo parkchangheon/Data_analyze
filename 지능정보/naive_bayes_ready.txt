@@ -1,0 +1,65 @@
+train=[('사과가 좋아', 'pos'),
+        ('잠에 먹는 사과는 비추야','neg'),
+        ('사과가 잘 익었어 맛있겠다','pos'),
+        ('바나나는 맛있어','pos')]
+
+from nltk.tokenize import word_tokenize
+import nltk #자연어 처리 툴킷/패키지
+
+nltk.download('punkt')
+
+
+#데이터 입력하기 : 영어버전
+
+train=[('I like you','pos'),('I hate you','neg'),
+      ('I enjoyed it','pos'),('I hate it','neg')]
+train
+
+
+all_words=set()
+
+for tup in train:
+    sent,label=tup[0],tup[1]
+    words=word_tokenize(sent)
+    for word in words:
+        all_words.add(word)
+        
+all_words
+
+
+train_features=[]
+
+for tup in train:
+    sent,label = tup[0],tup[1]
+    words= word_tokenize(sent)
+    tmp=dict()
+    for set_word in all_words:
+        if set_word in words:
+            tmp[set_word]=True
+            
+        else:
+            tmp[set_word]=False
+    sent_tup=(tmp,label)
+    train_features.append(sent_tup)
+    
+    
+print(train_features[0])
+print(train_features[1])
+print(train_features[2])
+print(train_features[3])
+
+
+classifier=nltk.NaiveBayesClassifier.train(train_features)
+classifier.show_most_informative_features()
+
+
+#test하기
+
+test_sent='I like it'
+
+words=word_tokenize(test_sent)
+test_feature={set_word:(set_word in words) for set_word in all_words}
+
+print(test_feature)
+
+classifier.classify(test_feature)
