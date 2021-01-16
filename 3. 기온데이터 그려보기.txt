@@ -1,0 +1,125 @@
+import csv
+import matplotlib.pyplot as plt
+
+f=open('incheon_w.csv','r')
+data=csv.reader(f)
+next(data)
+result=[]   #최고 기온 저장 리스트
+date=[]
+
+for row in data:
+    if row !='':
+        result.append(float(row[-1]))   #최고 기온 데이터 값 존재시 값을 추가
+        
+        date.append(row[0])
+        
+        
+m=max(result)
+        
+f.close()
+
+
+
+
+# 최고 기온 데이터 꺽은선 그래프로 그리기
+
+plt.plot(result,color='red')   # result 리스트에 저장된 값을 빨간색 그래프로 그리기
+plt.show()                     # 그래프 나타내기
+
+
+
+# 특정한 날의 데이터만을 뽑아서 그려보기
+
+# 문자열 분히라는 split() 함수에 대해 알아보자
+
+
+s='hello python'
+print(s.split()) # 사용자가 설정한 특정 문자로 분리. 이경우에는 공백
+
+
+
+
+#고로 날짜를 분리하고 싶다면,
+
+day='1907-10-01'
+print(day.split('-'))
+    
+print(day.split('-')[1])
+
+
+
+
+# 결론적으로 특정한 날의 데이터를 분리하고 싶다면,
+
+
+import csv
+import matplotlib.pyplot as plt
+
+f=open('incheon_w.csv','r')
+data=csv.reader(f)
+next(data)
+result=[]   #최고 기온 저장 리스트
+
+
+
+for row in data:
+    if row[-1] !='':
+        if row[0].split('/')[1]=='12':
+            result.append(float(row[-1]))   #최고 기온 데이터 값 존재시 값을 추가
+        
+        
+m=max(result)
+        
+f.close()
+
+
+# 최고 기온 데이터 꺽은선 그래프로 그리기
+
+plt.plot(result,color='red')   # result 리스트에 저장된 값을 빨간색 그래프로 그리기
+plt.show()                     # 그래프 나타내기
+
+
+
+
+
+import csv
+import matplotlib.pyplot as plt
+f=open('incheon_weather_BD.csv','r')
+
+data=csv.reader(f)
+next(data)
+
+high=[]
+low=[]
+
+for row in data:
+    if row[-1]!='' and row[-2]!='':
+        if int(row[0].split('-')[0])>=1996:
+            if row[0].split('-')[1]=='04' and row[0].split('-')[2]=='06':
+                high.append(float(row[-1]))
+                low.append(float(row[-2]))
+                           
+f.close()
+
+plt.title('201601649 - birthday temperature')   
+plt.rcParams['axes.unicode_minus']=False
+plt.plot(high,color='pink',label='high')
+plt.plot(low,color='cornflowerblue',label='low')
+
+plt.legend()
+plt.show()
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+

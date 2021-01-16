@@ -1,0 +1,140 @@
+#함수를 읽어온다
+
+import csv                  #csv 함수를 불러오겠다
+
+f=open('incheon_w.csv','r')  #파일을 읽어오겠다
+data=csv.reader(f)           #csv 파일을 읽는것
+
+for row in data:             #반복문으로 데이터를 하나하나 읽어온다
+    print(row)
+    
+f.close()
+
+
+
+
+# 헤더는 데이터를 다룰 때 표지판 같은 역할을 한다
+
+#여러가지 값들이 어떤 의미를 갖는지 표시한 행을 말함
+
+
+
+
+#주석은 crtl + /
+#함수를 읽어온다
+
+import csv                  #csv 함수를 불러오겠다
+
+f=open('incheon_w.csv','r')  #파일을 읽어오겠다
+data=csv.reader(f)           #csv 파일을 읽는것
+
+header=next(data)            # next함수를 이용해서 데이터의 첫번째 행을 가져온다
+print(header)   
+
+#next 함수는 첫번째 데이터행을 읽어오고 데이터의 탐색 위치를 다음 행으로 이동
+#for row in data:             #반복문으로 데이터를 하나하나 읽어온다
+#    print(row)
+    
+    
+
+
+# 기온데이터 분석하기
+
+# 1. csv 파일 읽기
+
+# 2. 헤더 저장하기
+
+# 3. 기온 공공 데이터에 질문하기 
+#  ex - 가장 더웠던 날은 언제였을까? 얼마나 더웠을까?
+
+# 4. 문제  해결방법 구상 하기 -> 날짜와 최고기온이 필요하다..!
+
+
+
+
+
+
+#주석은 crtl + /
+#함수를 읽어온다
+
+import csv                  #csv 함수를 불러오겠다
+
+f=open('incheon_w.csv','r')  #파일을 읽어오겠다
+data=csv.reader(f)           #csv 파일을 읽는것
+
+header=next(data)            # next함수를 이용해서 데이터의 첫번째 행을 가져온다
+print(header)   
+
+#next 함수는 첫번째 데이터행을 읽어오고 데이터의 탐색 위치를 다음 행으로 이동
+#for row in data:             #반복문으로 데이터를 하나하나 읽어온다
+#    print(row)
+    
+    
+
+
+max_temp=-999
+
+
+for row in data:
+    row[-1]=float(row[-1])
+    
+    if max_temp<row[-1]:
+        max_temp=row[-1]
+    print(row[-1])
+
+print()
+print(max_temp)
+
+f.close()
+
+
+
+#위의 문제에는 누락 데이터가 없었지만 누락 데이터가 있을 수 있다.
+#이때 누락 데이터 처리를 해보자
+
+
+
+#주석은 crtl + /
+#함수를 읽어온다
+
+import csv                  #csv 함수를 불러오겠다
+
+f=open('incheon_w.csv','r')  #파일을 읽어오겠다
+data=csv.reader(f)           #csv 파일을 읽는것
+
+header=next(data)            # next함수를 이용해서 데이터의 첫번째 행을 가져온다
+print(header)   
+
+#next 함수는 첫번째 데이터행을 읽어오고 데이터의 탐색 위치를 다음 행으로 이동
+#for row in data:             #반복문으로 데이터를 하나하나 읽어온다
+#    print(row)
+    
+    
+
+
+max_temp=-999                #최대값을 넣을 변수
+max_date=''                  #최대 기온 날짜
+
+for row in data:            # 반복문
+    if row[-1]=='':         # NULL (누락된 값) 처리 과정
+        row[-1]=-999
+    row[-1]=float(row[-1])  # 실수화
+    
+    if max_temp<row[-1]:    # 과정을 거치면서 조건에 맞으면 값을 갱신
+        max_temp=row[-1]
+        max_date=row[0]
+    print(row[-1])
+
+print()
+print(max_date,'일에 제일 기온이 높았고, 그 기온은 ',max_temp,'도 였다')
+
+
+
+f.close()
+
+
+
+
+
+
+

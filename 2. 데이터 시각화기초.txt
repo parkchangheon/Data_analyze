@@ -1,0 +1,209 @@
+# 기초 그래프 그리기
+
+import matplotlib.pyplot as plt    #matplotlib 라이브러리
+
+# alias 개념을 설명 하기 - 
+
+
+plt.plot([10,20,30,40])     # y 축의 값 ; x 축은 자동으로 0 1 2 3 입력이 되었음
+plt.show()
+
+
+
+
+
+
+import matplotlib.pyplot as plt    #matplotlib 라이브러리
+
+# alias 개념을 설명 하기 - 
+
+
+plt.plot([10,20,30,40],[12,43,25,15])   # 이런경우엔 x,y로 표시가된다
+plt.show()
+
+
+
+
+# 만약 그래프가 그려지지 않는다면, 
+# alt tab을눌러 새창에 그래프가 생성되었는지 확인하고, 그게 아니라면,
+# 새 창이 아닌 주피터 노트북 화면안에 그래프를 보고 싶다면,
+
+# %matplotlib inline을 맨 위에 입력해보자
+
+
+
+# 여러가지 옵션을 추가하기
+# 1. 제목넣기
+
+
+import matplotlib.pyplot as plt
+
+plt.plot([10,20,30,40])
+
+plt.title('MY_FIRST_GRAPH')
+
+plt.show()
+
+
+
+# 여러가지 옵션을 추가하기
+# 1. 제목넣기
+#이때 한글로 설정하면 안될텐데,이를 해결하기 위해서는
+
+import matplotlib.pyplot as plt
+plt.rc('font',family='Malgun Gothic') # 맑은 고딕 글꼴을 폰트 폴더에 넣어줌
+
+plt.plot([10,20,30,40])
+
+plt.title('플로팅')
+
+plt.show()
+
+
+
+
+
+# 여러가지 옵션을 추가하기
+# 1. 범례 넣기
+
+import matplotlib.pyplot as plt
+plt.rc('font',family='Malgun Gothic') 
+plt.title('범례')
+
+
+plt.plot([10,20,30,40], label="범례1") # 범례란 그래프가 의미하는 바를 구별해줌
+plt.plot([40,30,20,10], label="범례2")
+
+
+plt.legend()                         #그래프를 그리기 전에 legend 함수를 실행해줌
+
+
+
+plt.show()
+
+
+
+
+
+
+
+# 여러가지 옵션을 추가하기
+# 2. 범례 넣기
+
+import matplotlib.pyplot as plt
+plt.rc('font',family='Malgun Gothic') 
+plt.title('범례')
+
+
+plt.plot([10,20,30,40], label="범례1") 
+plt.plot([40,30,20,10], label="범례2")
+
+
+
+#범례의 위치를 특정하고 싶다면 loc 속성을 넣어준다.
+# 2 9 1 
+# 6 10 5,7
+# 3 8 4
+# 0 은 임의로 넣어져 있음.
+
+
+plt.plot([30,30,30,30], label="범례3")
+
+plt.legend(loc=1)   #그래프를 그리기 전에 legend 함수를 실행해줌
+
+plt.show()
+
+
+
+
+
+
+
+# 그래프 색상 바꾸기
+
+# 여러가지 옵션을 추가하기
+
+
+import matplotlib.pyplot as plt
+plt.rc('font',family='Malgun Gothic') 
+plt.title('색상')
+
+
+plt.plot([10,20,30,40],color='skyblue', label="범례1")
+plt.plot([40,30,20,10],color='pink', label="범례2")
+
+
+plt.legend()
+
+plt.show()
+
+
+
+
+
+
+# 그래프 선 바꾸기
+
+# 여러가지 옵션을 추가하기
+
+
+import matplotlib.pyplot as plt
+plt.rc('font',family='Malgun Gothic') 
+plt.title('색상')
+
+
+plt.plot([10,20,30,40],color='skyblue',linestyle='--', label="범례1") #ls라고도 표현 가능
+plt.plot([40,30,20,10],color='pink', label="범례2")
+
+
+plt.legend()
+
+plt.show()
+
+
+
+
+
+
+# 마커모양 바꾸기
+
+# 여러가지 옵션을 추가하기
+
+
+import matplotlib.pyplot as plt
+plt.rc('font',family='Malgun Gothic') 
+plt.title('색상')
+
+
+plt.plot([10,20,30,40],color='skyblue',linestyle='--', label="범례1") 
+plt.plot([40,30,20,10],color='pink',marker='o', label="범례2") #원하는 마커
+
+
+plt.legend()
+
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
