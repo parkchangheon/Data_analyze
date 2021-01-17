@@ -1,0 +1,48 @@
+# name 입력받아서 해당 자료 찾기
+
+
+import csv
+
+f=open('yangcheon.csv','r')
+data=csv.reader(f)
+male=[]
+female=[]
+
+header=next(data)
+
+name=input()
+
+for row in data:
+    if name in row[0]:
+        for i in row[3:104]:   #남 0세~ 100세 까지의 범위
+            male.append(int(i))
+            
+        for j in row[106:207]:
+            female.append(int(j))
+            
+            
+        # 하나의 for 문으로 묶는법
+        #for m,f in zip(row[3:104], row[106:207]):
+            #result.append(int(m)+int(r))
+            
+print(male)
+print(female)
+
+
+# 꺾은선 그래프
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family='Malgun Gothic')
+plt.title(name+'의 남녀 인구수')
+
+plt.style.use('ggplot') # 격자 무늬 스타일 지정 -> 그이외에도 스타일은 많음.
+plt.plot(male,color='skyblue')
+plt.plot(female,color='pink')
+plt.xlabel('나이')
+plt.ylabel('인구수')
+plt.show()
+
+
+
+

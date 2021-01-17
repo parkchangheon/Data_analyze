@@ -1,0 +1,101 @@
+# 파이 차트로 그려보기(라벨 그리기)
+
+import matplotlib.pyplot as plt
+
+plt.axis('equal') #간혹 찌그러지는 원을 펴주는 역할
+plt.pie([10,20],labels=['10','20']) #labels 로 여러개 추가 가능
+plt.show()
+
+
+
+
+
+
+# 파이 차트로 그려보기 (% 표시하기)
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family='Malgun Gothic')
+plt.axis('equal')
+size=[10,25,33,41]
+label=['r1','r2','r3','r4'] # 긴값은 레이블로 뺄 수 가 있다
+plt.pie(size,labels=label,autopct='%.1f%%') # 퍼센테이지 소수 한자리까지(둘째 자리에서 반올림해서)
+plt.legend()
+plt.show()
+
+
+
+
+# 파이 차트로 그려보기 (색바꾸기)
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family='Malgun Gothic')
+plt.axis('equal')
+size=[10,25,33,41]
+label=['r1','r2','r3','r4'] # 긴값은 레이블로 뺄 수 가 있다
+color=['darkmagenta','skyblue','hotpink','green']
+plt.pie(size,labels=label,colors=color,autopct='%.1f%%') #색바꾸기
+plt.legend()
+plt.show()
+
+
+# 더많은 색은 https://matplotlib.org/gallery/color/named_colors/html 에서 확인이 가능
+
+
+
+
+
+
+# 파이 차트로 그려보기(exp 돌출효과)
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family='Malgun Gothic')
+plt.axis('equal')
+size=[10,25,33,41]
+label=['r1','r2','r3','r4'] # 긴값은 레이블로 뺄 수 가 있다
+exp=[0,0,0.1,0]
+plt.pie(size,labels=label,autopct='%.1f%%',explode=exp) # 돌출효과
+plt.legend()
+plt.show()
+
+
+
+
+
+
+# 파이 차트로 그려보기(startangle)
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family='Malgun Gothic')
+plt.axis('equal')
+size=[10,25]
+label=['r1','r2'] # 긴값은 레이블로 뺄 수 가 있다
+exp=[0.1,0]
+plt.pie(size,labels=label,autopct='%.1f%%',explode=exp,startangle=90) # 회전
+plt.legend()
+plt.show()
+#파이차트의 기본 시작점은 3시 방향이고 90으로 설정했으므로 반시계방향으로 90이동
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

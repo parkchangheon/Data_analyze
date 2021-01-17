@@ -1,0 +1,26 @@
+# 데이터에 적용하기
+
+import csv
+
+f=open('yangcheon.csv','r')
+data=csv.reader(f)
+male=[]
+female=[]
+result=[]
+
+header=next(data)
+
+
+for row in data:
+    if '목1동' in row[0]:
+        for i in row[3:104]:   #남 0세~ 100세 까지의 범위
+            male.append(int(i))
+            
+        for j in row[106:207]:
+            female.append(int(j)) # 음수처리를 해준다
+            
+            
+        # 하나의 for 문으로 묶는법
+        for m,f in zip(row[3:104], row[106:207]):
+            result.append(int(m)+int(f))
+            

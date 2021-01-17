@@ -1,0 +1,211 @@
+# 산점도 
+
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+plt.scatter([1,2,3,4],[4,6,7,4])
+plt.show()
+
+
+
+
+
+# 산점도 (사이즈 바꾸기)
+
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+plt.scatter([1,2,3,4],[4,6,7,4],s=[100,200,300,250]) # 사이즈 바꾸기
+plt.show()
+
+
+
+
+
+
+
+# 산점도 (색 바꾸기)
+
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+plt.scatter([1,2,3,4],[4,6,7,4],c=['r','b','g','gold']) # 색 바꾸기
+plt.show()
+
+
+
+
+
+# 산점도 (색 바꾸기)
+
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+plt.scatter([1,2,3,4],[4,6,7,4],c=range(4)) # 색 바꾸기
+plt.colorbar()
+plt.show()
+
+
+
+
+
+
+# 산점도 (색 바꾸기)
+
+import matplotlib.pyplot as plt
+plt.style.use('ggplot')
+plt.scatter([1,2,3,4],[4,6,7,4],c=range(4),cmap='jet') # 색 바꾸기 (무지개 색)
+plt.colorbar()
+plt.show()
+
+
+
+
+
+
+import matplotlib.pyplot as plt
+import random
+
+x,y=[],[]
+size=[]
+
+for i in range(100):
+    x.append(random.randint(50,100))
+    y.append(random.randint(50,100))
+    size.append(random.randint(10,100)) # 점 크기는 임의로 정해주고 
+    
+    
+plt.scatter(x,y,s=size) 
+plt.show()
+
+
+
+
+
+
+
+
+
+import matplotlib.pyplot as plt
+import random
+
+x,y=[],[]
+size=[]
+
+for i in range(100):
+    x.append(random.randint(50,100))
+    y.append(random.randint(50,100))
+    size.append(random.randint(10,100)) # 점 크기는 임의로 정해주고 
+    
+    
+plt.scatter(x,y,s=size,c=size,cmap='jet') # c= size ( 같은 크기는 같은색) 
+plt.colorbar()
+plt.show()
+
+
+
+
+
+
+
+import matplotlib.pyplot as plt
+import random
+
+x,y=[],[]
+size=[]
+
+for i in range(100):
+    x.append(random.randint(50,100))
+    y.append(random.randint(50,100))
+    size.append(random.randint(10,100)) # 점 크기는 임의로 정해주고 
+    
+    
+plt.scatter(x,y,s=size,c=size,cmap='jet',alpha=0.3) # alpha는 투명도(0 -> 투명)
+plt.colorbar()
+plt.show()
+
+
+
+
+
+
+
+# 데이터에 적용하기
+
+import csv
+
+f=open('yangcheon.csv','r')
+data=csv.reader(f)
+male=[]
+female=[]
+result=[]
+
+header=next(data)
+
+
+for row in data:
+    if '목1동' in row[0]:
+        for i in row[3:104]:   #남 0세~ 100세 까지의 범위
+            male.append(int(i))
+            
+        for j in row[106:207]:
+            female.append(int(j)) # 음수처리를 해준다
+            
+            
+        # 하나의 for 문으로 묶는법
+        for m,f in zip(row[3:104], row[106:207]):
+            result.append(int(m)+int(f))
+            
+            
+plt.rc('font',family='Malgun Gothic')
+plt.title('연령대별 성별 인구 그래프')
+plt.scatter(male,female,c=range(101),alpha=0.5,cmap='jet')
+plt.colorbar()
+plt.xlabel('남성 인구수')
+plt.ylabel('여성 인구수')
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 데이터에 적용하기
+
+import csv
+
+f=open('yangcheon.csv','r')
+data=csv.reader(f)
+male=[]
+female=[]
+result=[]
+
+header=next(data)
+
+
+for row in data:
+    if '목1동' in row[0]:
+        for i in row[3:104]:   #남 0세~ 100세 까지의 범위
+            male.append(int(i))
+            
+        for j in row[106:207]:
+            female.append(int(j)) # 음수처리를 해준다
+            
+            
+        # 하나의 for 문으로 묶는법
+        for m,f in zip(row[3:104], row[106:207]):
+            result.append(int(m)+int(f))
+            
+            
+plt.rc('font',family='Malgun Gothic')
+plt.title('연령대별 성별 인구 그래프')
+plt.scatter(male,female,c=range(101),alpha=0.5,cmap='jet')
+line=range(max(male))
+plt.plot(line,line,color='g')
+plt.colorbar()
+plt.xlabel('남성 인구수')
+plt.ylabel('여성 인구수')
+plt.show()

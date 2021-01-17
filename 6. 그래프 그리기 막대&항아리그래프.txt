@@ -1,0 +1,160 @@
+# 막대그래프 & 항아리 그래프
+# 서로 다른 그래프를 그려야 하는 이유는 새로운 정보를 도출해 낼 수 있기 때문
+import matplotlib.pyplot as plt
+
+plt.bar([0,1,2,4,6,10],[1,2,3,5,6,7])
+plt.show()
+
+
+
+
+막대그래프
+
+import csv
+
+f=open('yangcheon.csv','r')
+data=csv.reader(f)
+male=[]
+female=[]
+result=[]
+
+header=next(data)
+
+
+for row in data:
+    if '목1동' in row[0]:
+        for i in row[3:104]:   #남 0세~ 100세 까지의 범위
+            male.append(int(i))
+            
+        for j in row[106:207]:
+            female.append(int(j))
+            
+            
+        # 하나의 for 문으로 묶는법
+        for m,f in zip(row[3:104], row[106:207]):
+            result.append(int(m)+int(f))
+            
+print(male)
+print(female)
+
+
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family='Malgun Gothic')
+plt.title('목1동의 총 인구수')
+
+plt.style.use('ggplot') # 격자 무늬 스타일 지정 -> 그이외에도 스타일은 많음.
+plt.bar(range(101),result)
+plt.xlabel('나이')
+plt.ylabel('인구수')
+plt.show()
+
+
+
+
+
+
+#그래프 눕히기
+
+import csv
+
+f=open('yangcheon.csv','r')
+data=csv.reader(f)
+male=[]
+female=[]
+result=[]
+
+header=next(data)
+
+
+for row in data:
+    if '목1동' in row[0]:
+        for i in row[3:104]:   #남 0세~ 100세 까지의 범위
+            male.append(int(i))
+            
+        for j in row[106:207]:
+            female.append(int(j))
+            
+            
+        # 하나의 for 문으로 묶는법
+        for m,f in zip(row[3:104], row[106:207]):
+            result.append(int(m)+int(f))
+            
+print(male)
+print(female)
+
+
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family='Malgun Gothic')
+plt.title('목1동의 총 인구수')
+
+plt.style.use('ggplot') # 격자 무늬 스타일 지정 -> 그이외에도 스타일은 많음.
+plt.barh(range(101),result)  # h(horizental) 를 붙여서 가로로 변경 가능
+plt.xlabel('나이')
+plt.ylabel('인구수')
+plt.show()
+
+
+
+
+
+
+
+
+#항아리 모양 만들기
+
+import csv
+
+f=open('yangcheon.csv','r')
+data=csv.reader(f)
+male=[]
+female=[]
+result=[]
+
+header=next(data)
+
+
+for row in data:
+    if '목1동' in row[0]:
+        for i in row[3:104]:   #남 0세~ 100세 까지의 범위
+            male.append(int(i))
+            
+        for j in row[106:207]:
+            female.append(-int(j)) # 음수처리를 해준다
+            
+            
+        # 하나의 for 문으로 묶는법
+        for m,f in zip(row[3:104], row[106:207]):
+            result.append(int(m)+int(f))
+            
+print(male)
+print(female)
+
+
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family='Malgun Gothic')
+plt.title('목1동의 총 인구수')
+
+plt.rcParams['axes.unicode_minus']=False # 마이너스 부호 깨짐 방지
+plt.style.use('ggplot') # 격자 무늬 스타일 지정 -> 그이외에도 스타일은 많음.
+
+plt.barh(range(101),male,color='blue', label='남성')
+plt.barh(range(101),female,color='pink', label='여성')
+plt.xlabel('나이')
+plt.ylabel('인구수')
+plt.legend() #범례등 효과 적용
+plt.show()
+
+
+
+
+
+
+
+
+
