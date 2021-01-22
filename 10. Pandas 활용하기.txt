@@ -1,0 +1,272 @@
+#Pandas
+# 다양한 데이터를 넣을 수 있다
+# 보통 테이블 형태의 데이터를 사용한다.
+
+
+
+#Series ( 1차원의 배열과 같은 자료 구조)
+
+import pandas as pd
+
+data=pd.Series([5,3,-1,9])
+data
+
+
+
+data.values
+
+data.index
+
+data2=pd.Series([8,-5,0,2],index=['A','B','C','D']) #index 는 색인
+data2
+
+# 이 색인을 통해서 접근이 가능함
+data2['A']
+
+
+data2['A']=10
+
+
+
+data2['A']
+
+
+
+# DataFrame
+
+# 여러개의 열을 가질 수 있다.
+# 각 열은 다른 종류의 자료형을 담을 수 있다.
+# 각행과 열에 대한 고유의 색인을 지니고 있음.
+
+#pd.DataFrame(data=None,index=None,columns=None,dtype=None,copy=False)
+
+# numpy array, python list, dictionary
+#등 데이터 프레임은 다양한 데이터로부터 생성
+
+
+
+
+# 딕셔너리란?
+
+# 파이썬 자료형 중 하나로, key와 value 쌍으로 이루어져있다.
+#{key:value, key2:value2 ....}
+
+
+
+
+person_a={'이름':'박창헌', '나이':26, '수강과목':'지능정보'}
+
+
+
+person_a['이름']
+
+
+
+
+# dataframe 으로 변환하기
+
+
+import numpy as np
+import pandas as pd
+
+
+a=[1,2,3]
+b=np.array([1,2,3])
+
+df=pd.DataFrame(a)  # 리스트를 이용해서 df를 만들었다
+df2=pd.DataFrame(b) # 넘파이 배열을 통해 df 를 만들었다
+df2
+
+
+
+
+
+
+
+df=pd.DataFrame(a,index=['1번','2번','3번'],columns=['A'])
+df
+
+
+
+
+a=[[1,2,3],[4,5,6]]
+b=np.array(a)
+b
+
+
+
+
+b.shape
+
+
+
+
+
+df=pd.DataFrame(a,index=['1번','2번'],columns=['A','B','C'])
+df
+
+
+
+
+# dictionary를 변환하는 방법 
+
+a={'key1':[1,2,3],'key2':[2,3,4],'key3':[3,5,7]}
+a
+
+
+
+
+df=pd.DataFrame(a)
+df
+
+
+
+
+
+data={'제목':['유미의 세포들','기기괴괴','프리드로우'],
+     '작가':['이동건','오성대','전선욱'],
+     '장르':['에피소드','옴니버스','스토리']}
+data
+
+
+
+type(data)
+
+
+
+
+
+frame=pd.DataFrame(data)
+frame
+
+
+
+frame=pd.DataFrame(data,columns=['장르','제목','작가']) # 순서를 바꾸는 방법
+frame
+
+
+
+frame['제목']
+
+
+
+
+
+
+frame.T # 행과 열을 전치 시킨다.
+
+
+
+
+
+
+# 데이터 정렬하기
+
+frame=pd.DataFrame([[1,3,2,4],[8,11,1,7],[10,5,20,1]],
+                  index=['5번','2번','4번'], columns=['B','Z','C','A'])
+
+frame
+
+
+
+
+
+
+# index 기준으로 정리하기
+
+frame.sort_index()
+
+
+
+
+
+
+
+#  특정 열의 값을 기준으로 정렬하기
+
+frame.sort_values(by=['Z'])
+
+
+
+
+
+
+
+
+frame.sort_values(by=['Z'],ascending=False) # 역순으로 정렬하기
+
+
+
+frame.sort_values(by=['B','C'])
+
+
+
+
+# 데이터 삭제하기
+# 특정행을 삭제하는것은 drop을 써서 삭제할 수 있다
+
+frame.drop(labels=['5번'],axis=0) #axis=0 이면 행, 1이면 열
+
+
+
+
+
+frame.drop(labels=['A'],axis=1)
+
+
+
+
+
+
+# 데이터 조회하기
+
+frame.head(2)
+
+
+
+
+
+
+frame.loc['2번']
+
+
+
+
+
+
+
+frame.loc['2번','C']
+
+
+
+
+frame.iloc[2,2] # 인덱스 기반으로 가져온다
+
+
+
+
+
+
+# 데이터 세기
+
+frame=pd.DataFrame([[1,3,2,4],[8,11,1,7],[10,5,20,1],[1,5,20,1]],
+                  index=['5번','2번','4번','5번'], columns=['B','Z','C','A'])
+
+frame['B'].value_counts()
+
+
+
+
+
+
+
+# 데이터 읽고 쓰기
+
+# 데이터 읽기 : df=pd.read_csv('파일명')
+
+# 데이터 쓰기(저장) : df=frame.to_csv('파일명')
+
+
+
+
+
