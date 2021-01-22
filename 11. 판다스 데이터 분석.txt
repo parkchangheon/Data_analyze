@@ -1,0 +1,13 @@
+# 데이터를 가져와서 막대그래프로 표현해보기
+
+import pandas as pd
+
+url='https://ko.wikipedia.org/wiki/%EC%98%AC%EB%A6%BC%ED%94%BD_%EB%A9%94%EB%8B%AC_%EC%A7%91%EA%B3%84' #데이터 가져오기
+
+df=pd.read_html(url,header=0,index_col=0) # 판다스로 url을 읽은뒤에, 각 구분자들 나눠주고,
+
+a=df[0].iloc[:,:5]   # 데이터의 필요한 부분만을 가져온다
+
+a.columns=['하계 참가 횟수','금','은','동','계'] # 칼럼명을 정해주고
+a=a.sort_values(by=['금'],ascending=False)      # 금메달 갯수에 따른 정렬을 수행
+a[1:11].plot(kind='bar') # 막대그래프 형태로 그려준다.
