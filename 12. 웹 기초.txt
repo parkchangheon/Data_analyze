@@ -1,0 +1,373 @@
+# 웹기초
+
+#크롤링
+# 웹페이지를 가져와서 데이터를 추출하는 행위
+
+# HTTP, URL HTML
+#데이터를 얻는 방법
+#1. 파일 다운로드
+#2. API 이용
+#3. 웹 사이트 크롤링/스크래핑
+
+
+
+
+HTTP
+한문서에서 다른 문서로 즉시 접근할 수 있는 텍스트
+문서들은 하이퍼링크로 연결되어있음
+HTTP는 하이퍼 텍스트를 전송하기 위한 프로토콜(규약)
+
+요청과 응답
+서버와 클라이언트가 존재하여, 사용자가 웹브라우저로 url을 통해 요청하면,
+서버는 요청에 맞는 응답을 함.
+
+일반적으로 GET 요청을 보냄
+
+응답은 200 ok, 404, 500번대 등 응답이 나옴..
+
+
+
+
+HTTPS
+s는 보안을 좀더 강화한 전송 프로토콜이라고 한다.
+응답시, 안전하게 암호화된 연결을 해준게 HTTPS ( SSL) secure socket layer
+
+
+
+
+URL
+네트워크 상에서 자원의 위치를 알려주는 주소
+
+
+
+
+
+
+HTML
+
+웹페이지를 위한 마크업 언어
+웹페이지를 작성하기 위한 문법들 중 한 종류
+
+마크 = TAG
+문서의 구조를 정의하기 위해 마크업 언어를 사용함
+
+구조)
+트리구조 이다. 나뭇가지가 한개에서 두개로 각각 뻗어나가는 구조와 같아서 붙은 이름
+
+
+
+
+
+
+크롤링과 스크래핑은 혼용되지만 미묘하게 차이가 존재
+
+크롤링은 검색엔진이 웹페이지의 정보를 수집하여 분류 및 색인화하여 DB화
+크롤러 혹은 봇이 웹페이지를 방문하여 데이터를 수집
+검색 엔진에서 우리가 보는 것은 DB에 저장되었는 수집된 데이터를 보는것
+->뺘르게 찾아서 보여줌
+
+
+스크래핑
+-> 웹페이지의 정보를 수집하는 일련의 행위
+스크래핑> 크롤링
+
+특정한 웹페이지에서 데이터 일부를 가져오는것
+
+
+
+#스크래핑 주의사항
+
+#우리나라에서 데이터 베이스권 침해 : 누군가가 시간과 비용을 들여 검증하고 가공한
+#    데이터를 가져올때
+#    즉 수집 과정과 수집 결과물의 상업적 활용 여부에 따라 법적 문제가 발생 가능
+#    지속적으로 데이터를 요청하게 된다면 DDOS 공격으로 인식하여,
+#    서비스를 제공하지 않을 수 있다.
+
+
+#=> time.sleep(10)과 같은 명령어로 조금씩 천천히 요구
+
+
+
+
+# 웹 데이터 가져오기1
+
+# urllib은 데이터를 받아오는 기능들이 들어있는 파이썬
+# 즉 크롤링하는 라이브러리
+# 판다스와 다르게 html 일부 테이블이 아닌 페이지 전체를 들고옴
+# 내장되어 있어 바로 임포트 할 수 있다.
+
+
+
+
+# BeautifulSoup
+
+#데이터를 추출하는 데 필요한 기능이 들어있는라이브러리
+#=> 파싱 라이브러리라고 함
+
+# 데이터를 받아오는게 크롤링
+# 그 데이터에서 필요한 내용을 추출하는 것이 파싱
+
+#=>뷰티풀숩은 설치가 필요하나, 아나콘다를 설치하였을 경우 설치가 필요 없을 수 있음
+
+
+
+
+
+
+# 뷰티풀 숩의 형태 => BeautifulSoup(<받은 텍스트>,<덱스트를 파싱할 파서>)
+# 같은형태로 사용  ==> HTML 파서를 가장 많이 사용함
+
+
+#예제
+
+from bs4 import BeautifulSoup
+
+html_str="<html><div>hello</div></html>"
+soup=BeautifulSoup(html_str,"html.parser")  # 위에 입력한 텍스트(스트링)과 파서를 입력
+
+print(type(soup))
+print(soup)
+
+
+
+
+
+
+
+# find => 파싱된 데이터 중 필요한 부분만 뽑아내기.
+
+from bs4 import BeautifulSoup
+
+html_str="<html><div>hello</div></html>"
+soup=BeautifulSoup(html_str,"html.parser")  # 위에 입력한 텍스트(스트링)과 파서를 입력
+
+
+print(type(soup))
+print(soup)
+print(soup.find("div")) # html_str에서 div 태그로 감싸진 부분을 가져온다
+# div 태그는 웹페이지 영역을 구분하기 위해 사용되며, 전체적인 틀을 잡을때 사용
+# 영역을 구분할때 사용됨
+
+
+
+
+# ul 태그 => 
+
+from bs4 import BeautifulSoup
+#=> """ 여도 문자열인데 이것은 여러줄의 문자열을 사용할때 3개 따옴표 사용
+
+
+html_str="""  
+<html>
+  <body>
+     <ul>
+        <li>line1</li>
+        <li>line2</li>
+        <li>line3</li>
+        
+    </ul>
+    
+  </body>
+  
+</html>
+"""
+
+soup=BeautifulSoup(html_str,"html.parser")
+
+ul=soup.find("ul")
+print(ul)
+
+# ul 태그는 순서 없는 목록 만들기   =>  문자 점으로 구분이 된다
+# 일반적으로 <li> 태그와 같이 사용됨
+
+
+
+
+#<ol> 태그  => 숫자로 1,2,3 ... 으로 구분이 된다
+
+#ordered list
+
+
+
+
+
+
+from bs4 import BeautifulSoup
+#=> """ 여도 문자열인데 이것은 여러줄의 문자열을 사용할때 3개 따옴표 사용
+
+
+html_str="""  
+<html>
+  <body>
+     <ul>
+        <li>line1</li>
+        <li>line2</li>
+        <li>line3</li>
+        
+    </ul>
+    
+  </body>
+  
+</html>
+"""
+
+soup=BeautifulSoup(html_str,"html.parser")
+
+ul=soup.find("ul")
+li=ul.find("li")
+
+print(ul)
+print(li.text)
+
+
+
+
+
+
+# 만약 line 3를 가져오고 싶다면?
+# find_all() 을 사용한다.
+
+
+html_str="""  
+<html>
+  <body>
+     <ul class=class1>
+        <li>line1</li>
+        <li>line2</li>
+        <li>line3</li>
+        
+    </ul>
+    
+    <ul class=class2>
+        <li>line4</li>
+        <li>line5</li>
+        <li>line6</li>
+        
+    </ul>
+    
+  </body>
+  
+</html>
+"""
+
+soup=BeautifulSoup(html_str,"html.parser")
+
+ul=soup.find("ul")
+li=ul.find("li")
+
+print(li)
+lis=ul.find_all("li")
+print(lis)
+lis[2].text
+
+
+
+
+# <> </> 가 태그이고,
+
+# 속성은 <ul : 태그, class 속성 "class1": 속성값
+
+
+#<ul class="class1">  
+
+#<a href="https://www.google.com/"> 구글 </a>
+
+# 태그 : a, 속성 : href ,  속성값 ="https:/......"
+
+
+
+
+# 속성값이 class2인 요소에 접근하는 1번째 방법
+
+soup=BeautifulSoup(html_str,"html.parser")
+
+ul=soup.find_all("ul")
+ul
+
+
+
+
+# 속성값이 class2인 요소에 접근하는 2번째 방법
+
+soup=BeautifulSoup(html_str,"html.parser")
+
+ul=soup.find("ul",{"class":"class2"})
+ul
+
+
+
+
+# class vs id
+
+# 클래스라는 속성은 그 속성값이 여러개가 존재 가능하지만,
+# id는 그 값이 웹페이지에서 유일해야한다. 즉 아이디는 특수하게!
+
+# <div class="class1" id="id1"> ...</div>
+# <div class="class1" id="id2"> ...</div>
+# <div class="class1" id="id3"> ...</div>
+
+
+
+
+
+# 속성값 추출하기
+
+
+html_str="""
+<html>
+  <body>
+    <ul class="search">
+        <li>
+          <a href="https://www.naver.com">네이버</a>
+        </li>
+        
+    </ul>
+    <ul class="sns">
+        <li>
+          <a href="https://www.facebook.com">페이스북</a>
+        </li>
+        
+    </ul>
+  </body>
+</html>
+"""
+
+soup=BeautifulSoup(html_str,"html.parser")
+ul=soup.find("a")
+print(ul)
+print(ul["href"])
+
+
+
+
+
+
+#복습
+
+html_str="""
+<html>
+  <body>
+    <ul class="search">
+        <li>
+          <a href="https://www.naver.com">네이버</a>
+        </li>
+        
+    </ul>
+    <ul class="sns">
+        <li>
+          <a href="https://www.facebook.com">페이스북</a>
+        </li>
+        
+    </ul>
+  </body>
+</html>
+"""
+
+
+soup=BeautifulSoup(html_str,"html.parser")
+ul2=soup.find_all('ul',{"class":"search"})
+ul=soup.find("a")
+print(ul2)
+print(ul)
+print(ul['href'])
+
