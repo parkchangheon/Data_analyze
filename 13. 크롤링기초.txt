@@ -1,0 +1,293 @@
+# robot.txt
+
+#urllib - 크롤링 라이브러리 ( 인터넷에 있는 데이터를 가져오는 파이썬 기본 내장 패키지)
+
+#BeautifulSoup - 크롤링해온 데이터에서 필요한 데이터를 추출하는 파싱 라이브러리
+
+#find - 조건을 만족하는 태그를 하나만 가져온다
+
+#class 속성
+
+
+
+
+
+
+from urllib.request import urlopen
+
+url="https://www.naver.com"
+html=urlopen(url)
+
+
+
+
+
+
+from bs4 import BeautifulSoup  #필요한 부분을 추춯
+from urllib.request import urlopen  
+
+url="https://www.naver.com"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(), "html.parser")
+# 뷰티풀 숩에 데이터를 넣어 파싱을 한다.
+
+
+
+
+
+
+
+# 필요한 부분만 가져와 보기 ( 크롬 개발자 도구를 이용한 데이터 가져오기)
+from bs4 import BeautifulSoup  #필요한 부분을 추춯
+from urllib.request import urlopen  
+
+url="https://www.naver.com"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(), "html.parser")
+
+result=soup.find("div",{"class":"service_area"}) # div 태그의 클래스 속성이 service area인것
+print(a_result.text)
+# 뷰티풀 숩에 데이터를 넣어 파싱을 한다.
+
+
+
+
+
+
+
+from bs4 import BeautifulSoup  #필요한 부분을 추춯
+from urllib.request import urlopen  
+
+url="https://www.naver.com"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(), "html.parser")
+
+result=soup.find("div",{"class":"service_area"}) # div 태그의 클래스 속성이 service area인것
+a_result=result.find("a") # 위의 result 에서 a 태그로 쌓인 것을 저장
+print(a_result.text)
+
+
+
+
+
+
+
+
+from bs4 import BeautifulSoup  #필요한 부분을 추춯
+from urllib.request import urlopen  
+
+url="https://www.naver.com"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(), "html.parser")
+result=soup.find("a",{"id":"NM_set_home_btn"}) # a 태그의 id로 바로 찾는법
+print(a_result.text)
+
+
+
+
+
+
+
+
+# 네이버 메인 페이지의 특정 txt 가져오기
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+url="https://www.naver.com"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(),"html.parser")
+
+result=soup.find("div",{"class":"service_area"})
+a_result=result.find("a")
+
+print(a_result.text)
+
+
+
+
+
+
+
+
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+url="https://www.naver.com"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(),"html.parser")
+
+result=soup.find("ul",{"class":"list_nav type_fix"})
+
+li_result= result.find_all("li")
+
+for i in li_result:
+    print(i.text)
+
+
+
+
+
+
+
+
+
+
+# 영화 소울 영화 평점 뽑아내기
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+group=[]
+for i in range(1,11):
+    url="https://movie.naver.com/movie/point/af/list.nhn?st=mcode&sword=184517&target=after&page=2"
+
+    html=urlopen(url)
+    soup=BeautifulSoup(html.read(),"html.parser")
+
+    result=soup.find("table",{"class":"list_netizen"})
+    t_result=result.find("tbody")
+
+    all_result=t_result.find_all("em")
+
+    for i in all_result:
+        group.append(i.text.strip(' ')) #.strip을 하면서 공백 문자를 삭제
+print(group)
+
+
+
+
+
+
+
+
+#영화 순위표 출력
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+url="https://movie.naver.com/movie/sdb/rank/rmovie.nhn?sel=pnt&date=20201015"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(),"html.parser")
+soup_list=(soup.find_all("div",{"class":"tit5"}))
+
+for title in soup_list:
+    a_title=title.find("a")
+    print(a_title.text)
+
+
+
+
+
+
+
+
+
+
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+url="https://movie.naver.com/movie/sdb/rank/rmovie.nhn?sel=pnt&date=20201015"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(),"html.parser")
+soup_list=(soup.find_all("div",{"class":"tit5"}))
+
+for title in soup_list:
+    print(title.text)
+
+
+
+
+
+
+
+
+
+
+#strip으로 위의 공백 삭제하기
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+url="https://movie.naver.com/movie/sdb/rank/rmovie.nhn?sel=pnt&date=20201015"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(),"html.parser")
+soup_list=(soup.find_all("div",{"class":"tit5"}))
+
+for title in soup_list:
+    print(title.text.strip(' \n')) ###strip으로 줄바꿈 기호를 삭제 했다
+
+
+
+
+
+
+
+
+
+#.string으로 문자열을 가져오던지 .text로 가져오던지 함.
+
+#string은 마지막 태그안의 문자열만을 추출할때 사용 => 순수 문자열이 아니면 NONE을 반환
+#.text는 현재 태그 및 모든 자식 태그를 제거하고 문자열만 반환 태그안 태그도 반환
+
+#get_text() 괄호안에 값이 없다면 .text처럼 사용하지만 
+#파라미터가 있다면, seperator이나 strip, types를 사용
+# seperator는 태그와 문자열을 일정한 기준에 구분해라.
+# strip 은 일정 기준으로 삭제.
+# 
+
+
+
+
+
+
+
+
+point_list=soup.find_all('td',{'class':'point'})
+
+for p in point_list:
+    print(float(p.text))
+
+
+
+
+
+
+import pandas as pd
+
+pd.date_range(start='10/01/2020',end='10/11/2020',freq='D')
+
+
+
+
+
+
+
+
+
+import pandas as pd
+
+pd.date_range(start='10/01/2020',end='10/11/2020',freq='B') #평일만
+# W는 매주 일요일, W-Mon은 월요일만 M은 매달 마지막 날만
+
+
+
+
+
+
+
+import pandas as pd
+
+pd.date_range(start='10/01/2020',periods=5,freq='B') #평일만
+# W는 매주 일요일, W-Mon은 월요일만 M은 매달 마지막 날만
+
+
