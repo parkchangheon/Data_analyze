@@ -1,0 +1,234 @@
+import pandas as pd
+
+date_list=pd.date_range('2021-01-01', periods=10, freq='D')
+print(date_list)
+
+
+
+
+for today in date_list:
+    print(today.strftime('%Y%m%d')) 
+
+
+
+
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+# url을 따옴표를 이용하여 문자열로 만들어주기
+url="https://movie.naver.com/movie/sdb/rank/rmovie.nhn?sel=pnt&date=20210101"
+html=urlopen(url)
+
+soup=BeautifulSoup(html.read(),"html.parser")
+
+titles=soup.find_all('div',{'class':'tit5'})
+points=soup.find_all('td',{'class':'point'})
+
+for title in titles:
+    print(title.text.split())
+
+
+
+
+for point in points:
+    print(point.text)
+
+
+
+
+
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import pandas as pd
+
+date_list=pd.date_range('2021-01-29',periods=1,freq='D')
+
+for today in date_list:
+    url="https://movie.naver.com/movie/sdb/rank/rmovie.nhn?sel=pnt&date="+(today.strftime('%Y%m%d'))
+    html=urlopen(url)
+    
+    soup=BeautifulSoup(html.read(),"html.parser")
+    
+    titles=soup.find_all('div',{'class':'tit5'})
+    points=soup.find_all('td',{'class':'point'})
+    
+    titles_text=[]
+    points_text=[]
+    date=[]
+    for t,p in zip(titles,points):
+        titles_text.append(t.text.strip(' \n'))
+        points_text.append(float(p.text))
+        date.append(today)
+        
+        
+    print(titles_text)
+    print(points_text)
+    print(date)
+
+
+
+
+
+
+#tqdm => 상태 진행바를 지원하는 모듈
+
+from tqdm.notebook import tqdm # 으로 해주고 
+for today in tqdm(date_list): # 이런식으로 사용해준다.
+
+
+
+
+
+
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+from tqdm.notebook import tqdm
+
+import time
+
+date_list = pd.date_range('2019-12-04', periods=30, freq='D')
+
+movie_title = []
+movie_point = []
+movie_date = []
+
+for today in tqdm(date_list):
+    url = "https://movie.naver.com/movie/sdb/rank/rmovie.nhn?sel=pnt&date=" + (today.strftime('%Y%m%d'))
+    html = urlopen(url)
+    
+    soup = BeautifulSoup(html.read(), "html.parser")
+    
+    time.sleep(3)
+    
+    titles = soup.find_all('div', {'class': 'tit5'})
+    points = soup.find_all('td', {'class': 'point'})
+    
+    titles_text = []
+    points_text = []
+    date = []
+    for t, p in zip(titles, points):
+        titles_text.append(t.text.strip(' \n'))
+        points_text.append(float(p.text))
+        date.append(today)
+        
+    movie_title += titles_text
+    movie_point += points_text
+    movie_date += date
+    
+print(movie_point)
+
+
+
+
+
+# pivot 테이블
+
+import pandas as pd
+
+#데이터 표로 만들기
+frame=pd.DataFrame({'date':movie_date,'title':movie_title,'point':movie_point})
+frame
+
+
+
+
+
+
+
+
+
+# 데이터 프레임 만들기
+
+df=pd.DataFrame({"A":["foo","foo","foo","foo","foo",
+                     "bar","bar","bar","bar"],
+                "B":["one","one","one","two","two",
+                    "one","one","two","two",],
+                "C":["small","large","large","small",
+                     "small","large","small","small","large"],
+                "D":[1,2,3,3,3,4,5,6,7],
+                "E":[2,4,5,5,6,6,8,9,9]
+                })
+
+df
+
+
+
+
+
+
+table=pd.pivot_table(df,values='D',index=['A','B'],
+                    columns=['C'],aggfunc=np.sum)
+
+table
+
+
+
+
+
+
+
+movie_point=pd.pivot_table(frame,values=['point'],index=['title'],aggfunc=np.mean)
+movie_point.head(10)
+
+
+
+
+
+
+
+
+#값 정렬하기
+
+movie_point_sort=movie_point.sort_values(by='point',ascending=False)
+movie_point_sort.head(10)
+
+
+
+
+
+
+
+
+#dataframe query
+
+expr="title=='원더'"   # 가져오고 싶은 값이 여러개인 경우 []로 가져온다.
+search_movie=frame.query(expr)
+print(search_movie)
+
+
+
+
+
+
+# 그래프 그리기
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family="Malgun Gothic")
+plt.rcParams['axes.unicode_minus']=False
+plt.style.use("ggplot")
+
+plt.plot(search_movie['date'],search_movie['point'])
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
