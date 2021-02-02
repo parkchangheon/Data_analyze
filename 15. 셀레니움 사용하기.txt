@@ -1,0 +1,44 @@
+from selenium import webdriver
+
+driver=webdriver.Chrome(r'C:\Users\sean park\chromedriver.exe') #크롬드라이버설치
+
+url="https://www.naver.com" # 접속하고자 하는 url
+
+driver.get(url) # url 접근
+
+
+
+from selenium import webdriver
+
+driver=webdriver.Chrome(r'C:\Users\sean park\chromedriver.exe')
+url="https://nid.naver.com/nidlogin.login?mode=form&url=https%3A%2F%2Fwww.naver.com"
+driver.get(url)
+
+
+
+
+login_id=driver.find_element_by_id("id") #셀레니움의 find_element_by_id로 id를 찾고
+login_id.clear() #기존 창 지워주고
+login_id.send_keys("naver_id")   # 전송한다.
+
+
+
+login_pw=driver.find_element_by_id("pw")
+login_pw.clear()
+login_pw.send_keys('1234')
+
+
+# xpath로 접근
+
+
+login_button='//*[@id="log.login"]'
+driver.find_element_by_xpath(login_button).click()
+
+
+
+driver.close()
+
+
+# 셀레니움으로 원하는 페이지로 간뒤,
+# 뷰티풀 숩으로 페이지 내용 읽어보기.
+

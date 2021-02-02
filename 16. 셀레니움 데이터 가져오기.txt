@@ -1,0 +1,115 @@
+from selenium import webdriver
+
+driver=webdriver.Chrome(r'C:\Users\sean park\chromedriver.exe')
+
+main_url="https://www.opinet.co.kr/user/main/mainView.do"
+driver.get(main_url)
+
+url="https://www.opinet.co.kr/searRgSelect.do"
+driver.get(url)
+
+
+
+city_xpath='//*[@id="SIDO_NM0"]'
+driver.find_element_by_xpath(city_xpath).send_keys('인천')
+
+
+
+
+gu_xpath='//*[@id="SIGUNGU_NM0"]'
+driver.find_element_by_xpath(gu_xpath).send_keys('연수구')
+
+
+click_xpath='//*[@id="searRgSelect"]/span'
+driver.find_element_by_xpath(click_xpath).click()
+
+
+
+
+
+# 엑셀로 저장하기
+excel_save='//*[@id="glopopd_excel"]/span'
+driver.find_element_by_xpath(excel_save).click()
+
+
+
+
+
+# 다운도륻 폴더 설정
+
+opts=webdriver.ChromeOptions()
+opts.add_experimental_option('prefs',{
+    '다운로드':r'C:\Users\sean park\지능정보 복습\10주차'
+})
+
+
+
+
+
+
+# 구 리스트 안에 어떤 구들이 있는지 가져와보기
+
+gu_xpath='//*[@id="SIGUNGU_NM0"]'
+gu_list_raw=driver.find_element_by_xpath(gu_xpath)
+gu_list=gu_list_raw.find_elements_by_tag_name("option")
+
+for g in gu_list:
+    print(g.text)
+
+
+
+
+
+
+
+gu_xpath='//*[@id="SIGUNGU_NM0"]'
+gu_list_raw=driver.find_element_by_xpath(gu_xpath)
+gu_list=gu_list_raw.find_elements_by_tag_name("option")
+
+gu_names=[]
+for i in range(len(gu_list)):
+    if i>0:
+        gu_names.append(gu_list[i].text)
+        
+print(gu_names)
+
+
+
+# 모든 구의 정보 엑셀 저장
+import time
+from tqdm.notebook import tqdm
+
+
+for i in tqdm(range(len(gu_names))):
+    print(gu_names[i])
+    
+    #지역 연수구
+    gu_xpath='//*[@id="SIGUNGU_NM0"]'
+    driver.find_element_by_xpath(gu_xpath).send_keys(gu_names[i])
+    
+    time.sleep(3)
+    
+    # 조회 버튼 클릭하기
+    search_button='//*[@id="searRgSelect"]/span'
+    driver.find_element_by_xpath(search_button).click()
+    
+    time.sleep(3)
+    #엑셀 저장 버튼 클릭하기
+    excel_save='//*[@id="glopopd_excel"]/span'
+    driver.find_element_by_xpath(excel_save).click()
+    
+
+
+driver.close()
+
+
+
+
+
+
+
+
+
+
+
+
