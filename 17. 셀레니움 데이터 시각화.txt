@@ -1,0 +1,147 @@
+from glob import glob
+glob('지역*.xls')
+#지역으로 시작한 * (모든 것) 을 가져와라.xls 로 끝나는...
+
+station_files=glob('지역*.xls')
+station_files
+
+
+import pandas as pd
+
+tmp_list=[]
+
+for file_name in station_files:
+    tmp=pd.read_excel(file_name, header=2)
+    tmp_list.append(tmp)
+    
+    
+tmp_list[0]
+
+
+
+
+import pandas as pd
+
+tmp_list=[]
+
+for file_name in station_files:
+    tmp=pd.read_excel(file_name, header=2)
+    tmp_list.append(tmp)
+    
+stations=pd.concat(tmp_list)
+stations.shape    
+    
+
+stations.info()
+
+
+
+stations.head()
+
+
+
+
+stations_sel=stations.loc[:,['상호','상표','주소','셀프여부','휘발유']]
+stations_sel
+
+
+stations_sel.columns=['주유소','상표','주소','셀프여부','가격'] #이름 바꾸기
+stations_sel
+
+
+
+
+gu_list=[]
+for address in stations['주소']:
+    address_gu=address.split()[1]
+    gu_list.append(address_gu)
+    
+    
+stations_sel['군/구']=gu_list  # 위의 그래프에 군/구 컬럼을 추가 하였다.
+stations_sel
+
+
+
+
+
+stations_sel=stations_sel.query("가격!='-'").copy() # copy를 함으로, 원본 보호
+stations_sel
+
+
+
+
+
+# 가격을 숫자(int)형으로 변경
+
+price_list=[]
+
+for price in stations_sel['가격']:
+    price_new=int(price)
+    price_list.append(price_new)
+    
+stations_sel['가격']=price_list
+stations_sel
+
+
+
+
+stations_sel.reset_index(inplace=True) # 처음부터 index를 다시 기록
+
+
+
+
+
+
+stations_sel
+
+
+
+del stations_sel['index'] # 인덱스 없애버리기
+stations_sel 
+
+
+
+
+
+# 그래프로 확인하기
+
+import matplotlib.pyplot as plt
+
+plt.rc('font',family='Malgun Gothic')
+plt.rcParams['axes.unicode_minus']=False
+plt.style.use("ggplot")
+
+stations_sel.boxplot(column='가격',by='셀프여부',figsize=(12,8))
+
+
+
+
+
+
+
+
+# seaborn으로 예쁘게 그려보기
+#pip install Seaborn을 해주어야 하지만, base는 설치 되어있다
+
+
+import seaborn as sns
+
+plt.figure(figsize=(12,8))
+sns.boxplot(x='상표',y='가격',hue="셀프여부",data=stations_sel,palette="Set3")
+plt.show()
+
+
+
+
+
+# palette="summer" 로 바꾸면 색이 바뀌고
+# x="군/구" 로 바꾸면 군/구 별 주유소로 바뀐다
+
+plt.figure(figsize=(12,8))
+sns.boxplot(x='군/구',y='가격',hue="셀프여부",data=stations_sel,palette="Set3")
+plt.show()
+
+
+
+
+
