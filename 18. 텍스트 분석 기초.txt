@@ -1,0 +1,85 @@
+# 비정형 데이터를 분석하여 유용한 정보와 숨겨져 있는 의미있는 정보를 찾아내는
+# 분석 방법이 텍스트 마이닝
+
+# 비정형 데이터는 텍스트고, 이것을 자연어 처리해서 다듬은게 정형 데이터
+# ex 비정형 데이터 = 간장공장공장장
+# 정형 데이터 -> 간장, 공장, 공장장
+# 시각화
+
+
+# 이때 이용하는 방법이 자연어 처림
+# => 컴퓨터가 사람의 언어를 인식할 수 있도록 하는 기술
+
+
+
+#데이터 수집 -> 데이터 전처리 -> 데이터 분석및 시각화
+
+#데이터 전처리에서 자연어 처리 등...을 함
+
+# 형태소 분석과 품사 태깅
+
+# 형태소 분석
+!pip install konlypy
+
+# KoNLpy 설치한다.
+# 한나눔 - 
+
+# analyze 가능한 후보군을 보여주는것
+# morphs 형태소를 
+# noun은 명사를
+# pos 품사태그를 붙임.
+
+# 아래는 형태소 분석기들
+
+from konlpy.tag import Hannanum
+hannanum=Hannanum()
+
+print(hannanum.morphs(u'롯데마트의 흑마늘 양념 치킨이 논란이 되고 있다'))
+print(hannanum.nouns(u'다람쥐가 나무위를 오른다'))
+
+
+
+from konlpy.tag import Kkma
+kkma=Kkma()
+
+print(kkma.nouns(u'알다가도 모를 건담의 세계'))
+# kkma는 sentence의 범주 까지 포함
+
+print(kkma.sentences(u'물이 정말 차구나.겨울이라서'))
+
+
+
+
+from konlpy.tag import Komoran
+komoran=Komoran(userdic='cat /tmp/dic.txt')
+
+print(komoran.pos(u'물이 정말 차구나.겨울이라서'))
+
+
+# open korean text 로 기존 트위터 분석기이고, ㅋㅋㅋ 같은 것들도 분석 가능
+from konlpy.tag import Okt
+okt=Okt()
+print(okt.pos(u'축구를 잘하는 것은 축복이야'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

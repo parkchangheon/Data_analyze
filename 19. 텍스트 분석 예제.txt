@@ -1,0 +1,157 @@
+from konlpy.corpus import kolaw
+
+fids=kolaw.fileids()
+fobj=kolaw.open(fids[0])
+print(fobj.read(140))
+
+fobj=kolaw.open(fids[0])
+ko_doc=fobj.read()
+
+
+
+
+
+
+from wordcloud import WordCloud
+
+wc = WordCloud(background_color='white',max_words=2000) #워드클라우드 객체생성
+wc = wc.generate(ko_doc)
+
+
+
+
+
+
+from wordcloud import WordCloud
+
+wc=WordCloud(background_color='white',max_words=2000)
+wc=wc.generate(ko_doc)
+
+import matplotlib.pyplot as plt
+plt.imshow(wc,interpolation="bilinear")
+plt.show()
+
+
+
+
+
+
+wc=WordCloud(background_color='white',max_words=2000,font_path=r'C:\Windows\Fonts\한컴 고딕\Hancom Gothic Regular.ttf')
+wc=wc.generate(ko_doc)
+
+import matplotlib.pyplot as plt
+plt.imshow(wc,interpolation="bilinear")
+plt.show()
+
+
+
+
+
+# generate -> 텍스트를 그대로 넘겨주고, 그 뒤에 빈도수 계산
+# generate_from_frequencies() => 미리 계산된 단어의 빈도수/ 중요도를 넘겨줌
+
+from collections import Counter
+
+wc=WordCloud(background_color='white',max_words=2000, font_path=r'C:\Windows\Fonts\한컴 고딕\Hancom Gothic Regular.ttf')
+count = Counter(ko_doc.split())
+wc=wc.generate_from_frequencies(count)
+count
+
+
+
+
+import matplotlib.pyplot as plt
+plt.imshow(wc,interpolation="bilinear")
+plt.show()
+
+
+
+# 의미없는 단어 추출하기 (stopword 제거하기)
+
+from konlpy.tag import Okt
+
+okt=Okt()
+
+ko_doc_noun=okt.nouns(ko_doc)
+print(ko_doc_noun)
+
+
+
+
+from collections import Counter
+count_noun=Counter(ko_doc_noun)
+wc_noun=WordCloud(background_color='white',max_words=2000, font_path=r'C:\Windows\Fonts\한컴 고딕\Hancom Gothic Regular.ttf')
+wc_noun=wc_noun.generate_from_frequencies(count_noun)
+
+import matplotlib.pyplot as plt
+plt.imshow(wc_noun, interpolation="bilinear")
+plt.show()
+
+
+
+count_noun.most_common()
+
+
+
+
+stopword_list=[]
+for noun_word in count_noun:
+    if len(noun_word)==1:
+        stopword_list.append(noun_word)
+        
+for stopword in stopword_list:
+    count_noun.pop(stopword)
+
+
+
+
+wc_noun=wc_noun.generate_from_frequencies(count_noun)
+
+import matplotlib.pyplot as plt
+plt.imshow(wc_noun, interpolation="bilinear")
+plt.show()
+
+
+
+count_noun.pop('모든')
+
+
+
+
+
+# 마스킹하기
+
+import numpy as np
+from PIL import Image
+
+img_mask=np.array(Image.open('barca.PNG'))
+
+
+
+
+
+
+
+
+wc=WordCloud(background_color='white', max_words=2000,font_path=r'C:\Windows\Fonts\한컴 고딕\Hancom Gothic Regular.ttf',
+            mask=img_mask)
+wc_img=wc.generate_from_frequencies(count_noun)
+
+import matplotlib.pyplot as plt
+plt.imshow(wc_img, interpolation="bilinear")
+plt.axis("off")
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
